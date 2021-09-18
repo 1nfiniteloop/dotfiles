@@ -1,0 +1,11 @@
+{
+  "editor.detectIndentation": false,
+  "editor.rulers": [80, 120],
+  "editor.tabSize": 2,
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "security.workspace.trust.untrustedFiles": "open", // allow Ctrl + K in terminal
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.allowChords": false,
+  "workbench.colorTheme": "Visual Studio Light"
+}

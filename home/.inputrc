@@ -1,0 +1,6 @@
+$include  /etc/inputrc
+
+# Command "Ctrl + x" followed by "Ctrl + r" re-reads this init file.
+# See more @ https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Bindable-Readline-Commands
+"\e[A": history-search-backward
+"\e[B": history-search-forward

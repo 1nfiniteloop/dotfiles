@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Source this file from .bashrc
+
+source ${HOME}/.bash_env
+source ${HOME}/.bash_functions
+
+# enable pgp ssh agent:
+#
+# NOTE: Configuration not needed for smart cards (Yubikey)
+#
+# 1. Enable ssh suppot with:
+#    echo "enable-ssh-support" >> .gnupg/gpg-agent.conf
+# 2. Add gpg keys to be used for ssh authentication,
+#    key marked with [A]:
+#    gpg -K --with-keygrip
+#    into:
+#    ~/.gnupg/sshcontrol
+# 3. Restart gpg agent with:
+#    gpg-connect-agent reloadagent /bye
+# 4. Use gpg keys with prefix gpge
+#    gpge ssh admin@unix-accounts.lan
+#    or:
+#    gpge ssh-add -L
+gpgconf --launch gpg-agent
+echo "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)" > ${USER_TMP}/gpg-ssh-agent.sh

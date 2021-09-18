@@ -1,0 +1,45 @@
+#!/bin/bash
+
+readonly abs="$(realpath ${0})"
+readonly base="${abs%/*}"
+
+__prompt_confirm()
+{
+  read -p "Replace (y/n)? " reply
+  if [[ "${reply}" == "y" ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+__create_symlink_to()
+{
+  local dst_file="${1}"
+  local dst_symlink="${HOME}/$(__relative_path_of ${1})"
+  if [[ -h "${dst_symlink}" ]]; then
+    # override existing symlinks without asking
+    ln -s -f "${dst_file}" "${dst_symlink}"
+  elif [[ ! -e "${dst_symlink}" ]]; then
+    ln -s "${dst_file}" "${dst_symlink}"
+  else
+    diff -ruN --color=always "${dst_symlink}" "${dst_file}"
+    __prompt_confirm \
+      && ln -s -b "${dst_file}" "${dst_symlink}"
+  fi
+}
+
+__relative_path_of()
+{
+  echo ${1##"${base}/home/"}
+}
+
+main()
+{
+  for file in $(find ${base}/home -type f); do
+    __create_symlink_to "${file}"
+    echo "$(__relative_path_of ${file})"
+  done
+}
+
+main

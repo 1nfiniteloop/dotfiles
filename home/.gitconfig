@@ -1,0 +1,27 @@
+[user]
+	email = gunnarsson.lars@gmail.com
+	name = Lars Gunnarsson
+
+[push]
+	default = simple
+
+[core]
+	editor = vi
+	#editor = gedit -s
+	autocrlf = input
+
+[alias]
+	a = add
+	b = branch
+	c = commit
+	ch = checkout
+	d = diff
+	l = log
+	m = merge
+	s = status
+
+[pull]
+	rebase = true
+
+[init]
+	defaultBranch = main

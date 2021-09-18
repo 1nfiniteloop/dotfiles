@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Symlink this file to .bashrc
+
+source ${HOME}/.bash_env
+source ${HOME}/.bash_aliases
+source ${HOME}/.bash_functions
+
+# start ssh agent and add keys
+eval $(ssh-agent) > /dev/null
+
+for key in ${HOME}/.ssh/*.pub; do
+ ssh-add -q ${key%.pub}
+done
+
+# start gpg ssh agent
+if ! pgrep okc-ssh-agent > /dev/null; then
+ okc-ssh-agent > ${USER_TMP}/gpg-ssh-agent.sh
+fi
+
+# enable bash auto complete
+source ${PREFIX}/etc/bash_completion.d/git-completion.bash
