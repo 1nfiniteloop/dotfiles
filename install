@@ -17,6 +17,10 @@ __create_symlink_to()
 {
   local dst_file="${1}"
   local dst_symlink="${HOME}/$(__relative_path_of ${1})"
+  local dst_path="${dst_symlink%/*}"
+  if [[ ! -d "${dst_path}" ]]; then
+    mkdir --parents "${dst_path}"
+  fi
   if [[ -h "${dst_symlink}" ]]; then
     # override existing symlinks without asking
     ln -s -f "${dst_file}" "${dst_symlink}"
