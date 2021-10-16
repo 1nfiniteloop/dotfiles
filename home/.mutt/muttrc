@@ -1,0 +1,43 @@
+# 1. Download oauth2 script:
+#    curl --remote-name https://raw.githubusercontent.com/google/gmail-oauth2-tools/master/python/oauth2.py
+#    chmod +x oauth2.py
+# 2. Create OAuth 2.0 Client ID for type "TV and Limited input"
+# 3. Fetch OAuth2 token with flag "--generate_oauth2_token" and
+#    configure my_client_id, my_client_secret, my_refresh_token
+#    in ~/.mutt/oauth2_secrets
+#
+# ref: http://www.mutt.org/doc/manual/#oauth
+source ~/.mutt/oauth2_secrets
+
+set my_email="gunnarsson.lars@gmail.com"
+set ssl_starttls=yes
+set ssl_force_tls=yes
+
+set from=$my_email
+set realname="Lars Gunnarsson"
+
+set smtp_url = "smtps://gunnarsson.lars@smtp.gmail.com"
+set smtp_authenticators="oauthbearer"
+set smtp_oauth_refresh_command="~/.mutt/oauth2.py \
+  --quiet \
+  --user=$my_email \
+  --client_id=$my_client_id \
+  --client_secret=$my_client_secret \
+  --refresh_token=$my_refresh_token"
+
+set imap_user=$my_email
+set imap_authenticators="oauthbearer"
+set imap_oauth_refresh_command="~/.mutt/oauth2.py \
+  --quiet \
+  --user=$my_email \
+  --client_id=$my_client_id \
+  --client_secret=$my_client_secret \
+  --refresh_token=$my_refresh_token"
+
+set copy=no
+set folder="imaps://imap.gmail.com/"
+set spoolfile="+INBOX"
+set postponed="+[Gmail]/Drafts"
+set record="+[Gmail]/Sent Mail"
+set trash="+[Gmail]/Trash"
+
