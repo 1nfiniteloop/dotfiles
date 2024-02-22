@@ -16,7 +16,9 @@
 	c = commit
 	ch = checkout
 	d = diff
-	l = log
+	l = log --oneline --graph --decorate
+	la = log --oneline --graph --decorate --all
+	ll = log
 	m = merge
 	s = status
 
